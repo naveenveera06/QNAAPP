@@ -1,0 +1,32 @@
+CREATE TABLE `topics` (
+  `topic_id` int(11) NOT NULL AUTO_INCREMENT,
+  `topic` varchar(45) NOT NULL,
+  `description` varchar(45) NOT NULL,
+  PRIMARY KEY (`topic_id`),
+  UNIQUE KEY `topic_id_UNIQUE` (`topic_id`),
+  UNIQUE KEY `topic_UNIQUE` (`topic`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+CREATE TABLE `question` (
+  `query_id` int(11) NOT NULL AUTO_INCREMENT,
+  `topic_id` int(11) NOT NULL,
+  `query` varchar(45) NOT NULL,
+  PRIMARY KEY (`query_id`),
+  UNIQUE KEY `query_id_UNIQUE` (`query_id`),
+  UNIQUE KEY `query_UNIQUE` (`query`),
+  KEY `topic_id_fk_idx` (`topic_id`),
+  CONSTRAINT `topic_id_fk` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`topic_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `comments` (
+  `comment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `query_id` int(11) NOT NULL,
+  `comment` varchar(45) NOT NULL,
+  PRIMARY KEY (`comment_id`),
+  UNIQUE KEY `comment_id_UNIQUE` (`comment_id`),
+  KEY `query_id_fk_idx` (`query_id`),
+  CONSTRAINT `qnstn_id_fk` FOREIGN KEY (`query_id`) REFERENCES `question` (`query_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
