@@ -45,11 +45,10 @@ public class MainController {
 	@CrossOrigin("*")
 	@RequestMapping(value = "/queryList", method = RequestMethod.POST)
 
-	public @ResponseBody List<Queries> getQueryList(@RequestBody String Id) {
+	public @ResponseBody List<Queries> getQueryList(@RequestBody  String Id) {
 
 		String number=Id;
 		Integer id=Integer.parseInt(number);
-		System.out.println("entered query controller" +id);
 
 		return queryService.listQuery(id);
 
@@ -57,21 +56,19 @@ public class MainController {
 
 	@CrossOrigin("*")
 	@RequestMapping(value = "/commentList", method = RequestMethod.POST)
-	public @ResponseBody List<Comment> getCommentList(@RequestBody String Id) {
+	public @ResponseBody List<Comment> getCommentList(@RequestBody (required = false) String Id) {
 
 		String number=Id;
 		Integer id=Integer.parseInt(number);
-		System.out.println("entered comment controller" +id);
 		return commentService.listComment(id);
 	}
-	
+
 	@CrossOrigin("*")
 	@RequestMapping(value = "/deleteQuery", method = RequestMethod.POST)
 	public @ResponseBody Integer  getdeleteQueryById(@RequestBody String Id) {
 
 		String number=Id;
 		Integer id=Integer.parseInt(number);
-		System.out.println("entered query controller");
 
 		return queryService.deleteQuery(id);
 	}
@@ -82,7 +79,6 @@ public class MainController {
 
 		String number=Id;
 		Integer id=Integer.parseInt(number);
-		System.out.println("entered query controller");
 
 		return commentService.deleteComment(id);
 	}
@@ -90,9 +86,6 @@ public class MainController {
 	@CrossOrigin("*")
 	@RequestMapping(value = "/postQuery", method = RequestMethod.POST)
 	public @ResponseBody Queries  postNewQuery(@RequestBody  Queries queries) throws Exception {
-
-		System.out.println("entered post query controller");
-		
 		return queryService.postQuery(queries);
 	}
 
@@ -100,9 +93,6 @@ public class MainController {
 	@CrossOrigin("*")
 	@RequestMapping(value = "/postComment", method = RequestMethod.POST)
 	public @ResponseBody Comment  postNewComment(@RequestBody  Comment comment) {
-
-		System.out.println("entered post comment controller");
-
 		return commentService.postComment(comment); 
 	}
 }
