@@ -1,4 +1,4 @@
-package test.java.controller;
+package com.stackroute.controllertest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,13 +20,13 @@ import com.stackroute.qna.QnAApp;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes=QnAApp.class)
 @AutoConfigureMockMvc
-public class getQueryListTest {
+public class ApplicationTest {
 	
 	String topicId="1";
 	String queryId="11";
 	String CommentId="43";
 	
-	private static final Logger logger = Logger.getLogger(getQueryListTest.class);
+	private static final Logger logger = Logger.getLogger(ApplicationTest.class);
 	
 	@Autowired
 	MockMvc mvc;
