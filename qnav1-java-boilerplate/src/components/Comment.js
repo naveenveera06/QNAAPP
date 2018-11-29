@@ -43,10 +43,16 @@ class Comment extends Component {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                method: 'POST',
+                method: 'PUT',
                 body: myCommentJSON
             })
             .then(response => {
+                if (response.status == 400) {
+                    toastr.info("Enter characters  between 1 and 200");
+                }
+                else if (response.status == 417) {
+                    toastr.error("Error in posting comment");
+                }
                 return response.json();
             })
             .then(
@@ -79,23 +85,18 @@ class Comment extends Component {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                method: 'POST',
+                method: 'DELETE',
                 body: myJSON
             })
             .then(response => {
-                return response.json();
-            }).then(deleteResult => {
-                this.setState({
-                    deleteStatus: deleteResult
-                });
-                if (this.state.deleteStatus = 1) {
+                if (response.status == 200) {
                     toastr.success("Comment deleted successfully")
-                    console.log(this.state.deleteStatus);
                     this.getCommentList();
                 }
                 else {
-                    toastr.error("Comment deleted is unsuccessful")
+                    toastr.error("Comment deletion is unsuccessful")
                 }
+                return response.json();
             }).catch(error => console.log(error));
     }
 
@@ -115,6 +116,10 @@ class Comment extends Component {
                 body: this.props.match.params.id
             })
             .then(response => {
+                if (response.status == 204) {
+                    toastr.info("No Comments available");
+                    return [];
+                }
                 return response.json();
             }).then(result => {
                 this.setState({
@@ -146,7 +151,7 @@ class Comment extends Component {
                                 <button className="btn btn-sm btn-primary mr-2 float-right delete-comment " onClick={() => this.deleteComment(comment.commentId)}>Delete Comment</button>
                             </div>
                             <div >
-                                <p className="card-text text-muted mr-2 float-right comment-date">Posted: {comment.rowCreatDtComment}</p>
+                                <p className="card-text text-muted mr-2 float-right comment-date">Posted: {comment.rowCreatDt}</p>
                             </div>
                         </div>
                     </div>

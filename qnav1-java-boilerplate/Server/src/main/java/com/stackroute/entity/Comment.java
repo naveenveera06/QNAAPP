@@ -10,7 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * @author 426141
@@ -25,18 +28,19 @@ public class Comment {
 	@Column(name="comment_id", nullable=false,updatable=false)
 	private int commentId;
 	
+	@NotNull
 	@Column(name="query_id")
 	private int queryId;
 	
+	@Size(min = 1, max = 200)
+	@NotNull
 	@Column(name="comments")
 	private String comment;
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MMM dd yyyy")
 	@Column(name="row_creat_dt")
 	private LocalDate rowCreatDt;
-	
-	@Transient	
-	private String rowCreatDtComment;
-	
+
 	public int getCommentId() {
 		return commentId;
 	}
@@ -69,13 +73,6 @@ public class Comment {
 		this.rowCreatDt = rowCreatDt;
 	}
 
-	public String getRowCreatDtComment() {
-		return rowCreatDtComment;
-	}
-
-	public void setRowCreatDtComment(String rowCreatDtComment) {
-		this.rowCreatDtComment = rowCreatDtComment;
-	}
 
 	@Override
 	public String toString() {

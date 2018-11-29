@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
+import { EILSEQ } from "constants";
 
 class TopicDetail extends Component {
 
@@ -13,8 +14,8 @@ class TopicDetail extends Component {
     this.state = {
       Queries: [],
       QuestionResult: [],
-      value: '',
-      deleteStatus: ''
+      value: ''
+      
     };
     this.handleChange = this.handleChange.bind(this);
     this.postQuestion = this.postQuestion.bind(this);
@@ -47,15 +48,23 @@ class TopicDetail extends Component {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        method: 'POST',
+        method: 'PUT',
         body: myQueryJSON
       })
       .then(response => {
+        if (response.status == 400) {
+          toastr.info("Enter characters  between 1 and 200");
+        }
+        else if (response.status == 417) {
+          toastr.error("Error in posting query");
+        }
+
         return response.json();
       })
       .then(
 
         result => {
+          console.log("Result", result)
           toastr.success("Query posted successfully")
           let newQueries = [...this.state.Queries, result];
           this.setState({
@@ -82,15 +91,21 @@ class TopicDetail extends Component {
         },
         method: 'POST',
         body: this.props.match.params.id
+
       })
       .then(response => {
+        if (response.status == 204) {
+          toastr.info("No Queries available");
+          return [];
+        }
         return response.json();
       }).then(result => {
         this.setState({
           Queries: result
         });
         console.log(this.state.Queries);
-      }).catch(error => console.log(error));
+      }).catch(error => toastr.error(error),
+        error => console.log(error));
   }
 
 
@@ -109,27 +124,22 @@ class TopicDetail extends Component {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        method: 'POST',
+        method: 'DELETE',
         body: myJSON
       })
       .then(response => {
-        return response.json();
-      }).then(deleteResult => {
-        this.setState({
-          deleteStatus: deleteResult
-        });
-        if (this.state.deleteStatus = 1) {
+        if (response.status == 200) {
           toastr.success("Query deleted successfully")
-          console.log(this.state.deleteStatus);
-          this.getQuestionList();
+                    this.getQuestionList();
         }
         else {
           toastr.error("Query deletion is unsuccessful")
         }
+        return response.json();
       }).catch(error => console.log(error));
   }
 
-
+ 
   componentDidMount() {
     this.getQuestionList()
 
@@ -149,7 +159,7 @@ class TopicDetail extends Component {
             <div className="card mb-12">
               <div className="card-body">
                 <p className="card-text question-card">{query.queries}</p>
-                
+
 
                 <NavLink
                   to={`/question-details/${query.queryId}`}
@@ -157,10 +167,10 @@ class TopicDetail extends Component {
                   className="btn btn-sm btn-primary mb-2  float-right view-comments "
                 >View Comments
                   </NavLink>
-                  <button className="btn btn-sm btn-primary mr-2 float-right delete-question " onClick={() => this.deleteQuestion(query.queryId)} >Delete Question</button>
+                <button className="btn btn-sm btn-primary mr-2 float-right delete-question " onClick={() => this.deleteQuestion(query.queryId)} >Delete Question</button>
               </div>
               <div >
-                <p className="card-text text-muted mr-2 float-right question-date">Posted: {query.rowCreatDtQuery}</p>
+                <p className="card-text text-muted mr-2 float-right question-date">Posted: {query.rowCreatDt}</p>
               </div>
             </div>
           </div>

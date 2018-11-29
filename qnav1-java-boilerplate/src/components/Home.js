@@ -17,6 +17,10 @@ class Home extends Component {
 
     fetch(API + DEFAULT_QUERY)
       .then(response => {
+        if (response.status == 204) {
+          toastr.info("No Topics available");
+          return [];
+        }
         return response.json();
       }).then(result => {
         this.setState({

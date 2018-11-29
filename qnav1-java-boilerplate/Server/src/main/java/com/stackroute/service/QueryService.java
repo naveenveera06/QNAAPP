@@ -7,10 +7,10 @@ import com.stackroute.entity.Queries;
 @Service
 public interface QueryService {
 	
-	public List<Queries> listQuery(Integer id);
+	public List<Queries> listQuery(Integer id) ;
 
 	public Integer deleteQuery(Integer id);
 
-	public Queries postQuery(Queries queries) throws Exception;
+	public Queries postQuery(Queries queries) ;
 		
 } 
