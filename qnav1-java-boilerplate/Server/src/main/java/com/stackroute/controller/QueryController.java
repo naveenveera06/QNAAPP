@@ -37,18 +37,14 @@ public class QueryController {
 		String number = Id;
 		Integer id = Integer.parseInt(number);
 		List<Queries> queries = new ArrayList<>();
-		//
+		
 			queries = queryService.listQuery(id);
 
 			if (queries.isEmpty()) {
 				logger.debug("No query found for ID: " + +id);
 				throw new NoResultException();
 			}
-		/*} catch (Exception e) {
-			logger.error("Unknown error while fetching querylist for topic ID: " + +id);
-			e.printStackTrace();
-			throw new UnknownError();
-		}*/
+		
 		return queries;
 	}
 
@@ -63,7 +59,7 @@ public class QueryController {
 
 		String number = Id;
 		Integer id = Integer.parseInt(number);
-		Integer deleteQueryStatus = 0;
+		Integer deleteQueryStatus;
 		try {
 			deleteQueryStatus = queryService.deleteQuery(id);
 			if (queryService.equals(1)) {

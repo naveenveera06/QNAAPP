@@ -55,14 +55,6 @@
   },
   "scripts": {
     "build": "set NODE_ENV=production&& webpack --progress",
-    "start": "nodemon --watch webpack.config.babel.js --exec \"npm-run-all --parallel lint:watch open:src\"",
-    "open:src": "set NODE_ENV=development&& webpack-dev-server -w --progress",
-    "lint": "node_modules/.bin/esw webpack.config.* src",
-    "lint:watch": "npm run lint -- --watch",
-    "start-script": "react-scripts start",
-    "build-script": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "spring-boot:run": "mvn exec:java -pl Server -Dexec.mainclass='com.stackroute.qna.QnAApp'"
+    "start-app": "set NODE_ENV=development&& webpack-dev-server -w --progress"
   }
 }

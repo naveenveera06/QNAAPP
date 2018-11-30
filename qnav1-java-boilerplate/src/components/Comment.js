@@ -35,9 +35,9 @@ class Comment extends Component {
         var myCommentJSON = JSON.stringify(postCommentJSON);
 
         const API = "http://localhost:8080";
-        const DEFAULT_QUERY = "/postComment";
+        const ENDPOINT = "/postComment";
 
-        fetch(API + DEFAULT_QUERY
+        fetch(API + ENDPOINT
             , {
                 headers: {
                     'Accept': 'application/json',
@@ -77,9 +77,9 @@ class Comment extends Component {
 
         console.log(deleteId);
         const API = "http://localhost:8080";
-        const DEFAULT_QUERY = "/deleteComment";
+        const ENDPOINT = "/deleteComment";
 
-        fetch(API + DEFAULT_QUERY
+        fetch(API + ENDPOINT
             , {
                 headers: {
                     'Accept': 'application/json',
@@ -104,9 +104,9 @@ class Comment extends Component {
         this._isMounted = true;
 
         const API = "http://localhost:8080";
-        const DEFAULT_QUERY = "/commentList";
+        const ENDPOINT = "/commentList";
 
-        fetch(API + DEFAULT_QUERY
+        fetch(API + ENDPOINT
             , {
                 headers: {
                     'Accept': 'application/json',

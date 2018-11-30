@@ -13,9 +13,9 @@ class Home extends Component {
   componentDidMount() {
 
     const API = "http://localhost:8080";
-    const DEFAULT_QUERY = "/getTopics";
+    const ENDPOINT = "/getTopics";
 
-    fetch(API + DEFAULT_QUERY)
+    fetch(API + ENDPOINT)
       .then(response => {
         if (response.status == 204) {
           toastr.info("No Topics available");
