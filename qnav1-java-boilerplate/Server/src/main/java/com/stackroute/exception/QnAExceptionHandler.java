@@ -29,12 +29,5 @@ public class QnAExceptionHandler extends ResponseEntityExceptionHandler {
 		return handleExceptionInternal(null, bodyOfResponse, new HttpHeaders(), HttpStatus.EXPECTATION_FAILED, request);
 	}
 
-	@ExceptionHandler(value = { IllegalArgumentException.class })
-	protected ResponseEntity<Object> handleIllegalArguments(RuntimeException ex, WebRequest request) {
-
-		String bodyOfResponse = "Illegal argument or parameter must not be null";
-
-		return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
-	}
 
 }

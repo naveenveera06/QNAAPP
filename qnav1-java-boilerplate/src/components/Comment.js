@@ -43,7 +43,7 @@ class Comment extends Component {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                method: 'PUT',
+                method: 'POST',
                 body: myCommentJSON
             })
             .then(response => {
@@ -104,17 +104,9 @@ class Comment extends Component {
         this._isMounted = true;
 
         const API = "http://localhost:8080";
-        const ENDPOINT = "/commentList";
+        const ENDPOINT = "/commentList/";
 
-        fetch(API + ENDPOINT
-            , {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: 'POST',
-                body: this.props.match.params.id
-            })
+        fetch(API + ENDPOINT + this.props.match.params.id)
             .then(response => {
                 if (response.status == 204) {
                     toastr.info("No Comments available");

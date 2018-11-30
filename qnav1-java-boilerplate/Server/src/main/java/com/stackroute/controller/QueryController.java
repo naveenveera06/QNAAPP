@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,9 +31,9 @@ public class QueryController {
 	 */
 
 	@CrossOrigin("*")
-	@RequestMapping(value = "/queryList", method = RequestMethod.POST)
+	@RequestMapping(value = "/queryList/{id}", method = RequestMethod.GET)
 
-	public @ResponseBody List<Queries> getQueryList(  @RequestBody String Id) {
+	public @ResponseBody List<Queries> getQueryList( @PathVariable("id") String Id) {
 
 		String number = Id;
 		Integer id = Integer.parseInt(number);
@@ -59,7 +60,7 @@ public class QueryController {
 
 		String number = Id;
 		Integer id = Integer.parseInt(number);
-		Integer deleteQueryStatus;
+		Integer deleteQueryStatus=0;
 		try {
 			deleteQueryStatus = queryService.deleteQuery(id);
 			if (queryService.equals(1)) {
@@ -78,14 +79,11 @@ public class QueryController {
 	 * Input: Topic ID, Query
 	 */
 	@CrossOrigin("*")
-	@RequestMapping(value = "/postQuery", method = RequestMethod.PUT)
+	@RequestMapping(value = "/postQuery", method = RequestMethod.POST)
 	public @ResponseBody Queries postNewQuery(@Valid @RequestBody Queries queries) {
 		Queries que = null;
 		try {
-			if (queries.getQueries() == null || queries.getQueries().trim().equals("") || queries.getTopicId() == 0) {
-				throw new IllegalArgumentException();
-			}
-
+			
 			que = queryService.postQuery(queries);
 		} catch (Exception e) {
 

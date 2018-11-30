@@ -47,7 +47,7 @@ class Query extends Component {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        method: 'PUT',
+        method: 'POST',
         body: myQueryJSON
       })
       .then(response => {
@@ -80,18 +80,9 @@ class Query extends Component {
     this._isMounted = true;
 
     const API = "http://localhost:8080";
-    const ENDPOINT = "/queryList";
+    const ENDPOINT = "/queryList/";
 
-    fetch(API + ENDPOINT
-      , {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        method: 'POST',
-        body: this.props.match.params.id
-
-      })
+    fetch(API + ENDPOINT + this.props.match.params.id)
       .then(response => {
         if (response.status == 204) {
           toastr.info("No Queries available");

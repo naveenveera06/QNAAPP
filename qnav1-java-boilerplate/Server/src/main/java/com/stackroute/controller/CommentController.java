@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,21 +32,21 @@ public class CommentController {
 	 */
 
 	@CrossOrigin("*")
-	@RequestMapping(value = "/commentList", method = RequestMethod.POST)
-	public @ResponseBody List<Comment> getCommentList(@Valid @RequestBody String Id) {
+	@RequestMapping(value = "/commentList/{id}", method = RequestMethod.GET)
+	public @ResponseBody List<Comment> getCommentList(  @PathVariable("id") String Id) {
 
 		String number = Id;
 		Integer id = Integer.parseInt(number);
 		List<Comment> comment = new ArrayList<>();
 
-		
-			comment = commentService.listComment(id);
 
-			if (comment.isEmpty()) {
-				logger.debug("No Comment found for ID: " + +id);
-				throw new NoResultException();
-			}
-			
+		comment = commentService.listComment(id);
+
+		if (comment.isEmpty()) {
+			logger.debug("No Comment found for ID: " + +id);
+			throw new NoResultException();
+		}
+
 		return comment;
 
 	}
@@ -57,7 +58,7 @@ public class CommentController {
 
 	@CrossOrigin("*")
 	@RequestMapping(value = "/deleteComment", method = RequestMethod.DELETE)
-	public @ResponseBody Integer getdeleteCommentById(@Valid @RequestBody String Id) {
+	public @ResponseBody Integer getdeleteCommentById( @RequestBody String Id) {
 
 		String number = Id;
 		Integer id = Integer.parseInt(number);
@@ -81,22 +82,17 @@ public class CommentController {
 	 */
 
 	@CrossOrigin("*")
-	@RequestMapping(value = "/postComment", method = RequestMethod.PUT)
+	@RequestMapping(value = "/postComment", method = RequestMethod.POST)
 	public @ResponseBody Comment postNewComment(@Valid @RequestBody Comment comment) {
-			
-	Comment cmt = null;
-	try {
-		if (comment.getComment() == null || comment.getComment().trim().equals("") || comment.getQueryId() == 0) {
 
-			throw new IllegalArgumentException();
+		Comment cmt = null;
+		try {
+			cmt = commentService.postComment(comment);
+		} catch (Exception e) {
+
+			logger.error("Error in posting comment " + e);
+			throw new UnknownError();
 		}
-
-		cmt = commentService.postComment(comment);
-	} catch (Exception e) {
-
-		logger.error("Error in posting comment " + e);
-		throw new UnknownError();
+		return cmt;
 	}
-	return cmt;
-}
 }
