@@ -16,14 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.stackroute.entity.Queries;
 import com.stackroute.service.QueryService;
-import com.stackroute.serviceImpl.QueryServiceImpl;
 
 @RestController
 public class QueryController {
 	@Autowired
 	QueryService queryService;
 
-	private static final Logger logger = Logger.getLogger(QueryServiceImpl.class);
+	private static final Logger logger = Logger.getLogger(QueryController.class);
 
 	/*
 	 * Description: Method is used to fetch all the list of queries under the
