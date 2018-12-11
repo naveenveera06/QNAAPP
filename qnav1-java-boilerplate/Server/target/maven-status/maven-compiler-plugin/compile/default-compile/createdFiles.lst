@@ -1,0 +1,17 @@
+com\stackroute\qna\QnAApp.class
+com\stackroute\repo\QueryRepo.class
+com\stackroute\service\TopicService.class
+com\stackroute\service\QueryService.class
+com\stackroute\serviceImpl\CommentServiceImpl.class
+com\stackroute\exception\QnAExceptionHandler.class
+com\stackroute\service\CommentService.class
+com\stackroute\entity\Topic.class
+com\stackroute\controller\CommentController.class
+com\stackroute\controller\TopicController.class
+com\stackroute\controller\QueryController.class
+com\stackroute\entity\Comment.class
+com\stackroute\repo\CommentRepo.class
+com\stackroute\entity\Queries.class
+com\stackroute\repo\TopicRepo.class
+com\stackroute\serviceImpl\TopicServiceImpl.class
+com\stackroute\serviceImpl\QueryServiceImpl.class
