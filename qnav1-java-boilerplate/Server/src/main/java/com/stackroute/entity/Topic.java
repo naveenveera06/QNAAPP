@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author 426141
@@ -23,9 +24,11 @@ public class Topic {
 	@Column(name="topic_id")
 	private int topicId;
 	
+	@NotNull
 	@Column(name="topic")
 	private String topic;
 	
+	@NotNull
 	@Column(name="description")
 	private String description;
 
