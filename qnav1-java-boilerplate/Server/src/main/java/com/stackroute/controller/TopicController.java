@@ -3,6 +3,7 @@ package com.stackroute.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.NoResultException;
 
 import org.apache.log4j.Logger;
@@ -23,6 +24,14 @@ public class TopicController {
 
 	private static final Logger logger = Logger.getLogger(TopicController.class);
 
+	
+	@PostConstruct
+	public void Initialize(){
+	topicService.topicInitialize();
+	}
+	
+	
+	
 	@CrossOrigin
 	@RequestMapping(value = "/getTopics", method = RequestMethod.GET)
 	public @ResponseBody List<Topic> getTopics() {

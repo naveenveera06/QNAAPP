@@ -9,13 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 /**
  * @author 426141
@@ -31,8 +29,6 @@ public class Comment {
 	private int commentId;
 	
 	@NotNull
-	@ManyToOne
-	@JsonIgnore
 	@Column(name="query_id")
 	private int queryId;
 	

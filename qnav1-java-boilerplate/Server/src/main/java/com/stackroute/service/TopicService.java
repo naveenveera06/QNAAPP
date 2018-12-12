@@ -10,5 +10,7 @@ import com.stackroute.entity.Topic;
 public interface TopicService {
 	
 	public List<Topic> viewTopics();
+	
+	public void topicInitialize();
 
 }

@@ -9,13 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 /**
  * @author 426141
@@ -31,11 +29,9 @@ public class Queries {
 	private int queryId;
 
 	@NotNull
-	@ManyToOne
-	@JsonIgnore
 	@Column(name = "topic_id")
 	private int topicId;
-    
+
 	@Size(min = 1, max = 200)
 	@NotNull
 	@Column(name = "queries")
