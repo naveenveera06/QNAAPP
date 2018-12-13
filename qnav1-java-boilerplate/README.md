@@ -23,7 +23,7 @@ Run the below commands in the root directory of the project
     docker rm qna_mysql
 	
 8. Start the mysql instance which will host the database in network
-    docker run --name qna_mysql -e MYSQL_ROOT_PASSWORD=password-1 -e MYSQL_DATABASE=car_xplore --network=qna_network --ip=172.25.1.3 mysql:5.7.24
+    docker run --name qna_mysql -e MYSQL_ROOT_PASSWORD=password-1 -e MYSQL_DATABASE=car_xplore --network=qna_network --ip=172.25.1.3 -d mysql:5.7.24
 	
 9. Stop the SpringBoot container if already running.
     docker stop qna_springboot
@@ -32,7 +32,7 @@ Run the below commands in the root directory of the project
     docker rm qna_springboot
 	
 11. Start the SpringBoot docker using the below command. This will host the springboot server in the port 8080.
-    docker run --name qna_springboot -p 8080:8080 --network=qna_network spring_app
+    docker run --name qna_springboot -p 8080:8080 --network=qna_network -d spring_app
 	
 12. Go one directory up.
     cd ..
@@ -53,7 +53,7 @@ Run the below commands in the root directory of the project
     docker rm qnaapp_react
 	
 18. Finally run the react app docker. This exposes the React app in the port 3000.
-    docker run --name qnaapp_react -p 3000:3000 qna_react
+    docker run --name qnaapp_react -p 3000:3000 -d qna_react
 
 ## Now the you can host the project with below link
 
