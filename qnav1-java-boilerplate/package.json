@@ -51,9 +51,15 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.5",
-    "toastr": "^2.1.4"
+    "toastr": "^2.1.4",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "morgan": "~1.9.0"
   },
   "scripts": {
+    "start-express": "node ./bin/www",
     "build": "set NODE_ENV=production&& webpack --progress",
     "start-app": "set NODE_ENV=development&& webpack-dev-server -w --progress"
   }

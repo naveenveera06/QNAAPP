@@ -19,7 +19,7 @@ public class TopicServiceImpl implements TopicService {
 	
 	public List<Topic> viewTopics() {
 		return topicRepo.findAll();
-	}
+	} 
 	
 	
 	@PostConstruct

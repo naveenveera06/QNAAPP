@@ -18,8 +18,7 @@ class Comment extends Component {
 
 
     handleChange(event) {
-        console.log(this._isMounted);
-        console.log(this.state.value);
+      
         if (this._isMounted) {
             this.setState({ value: event.target.value });
             console.log(this.state.value);
@@ -74,8 +73,6 @@ class Comment extends Component {
 
         var myJSON = JSON.stringify(deleteId);
 
-
-        console.log(deleteId);
         const API = "http://localhost:8080";
         const ENDPOINT = "/deleteComment";
 
@@ -117,7 +114,7 @@ class Comment extends Component {
                 this.setState({
                     Comments: result
                 });
-                console.log(this.state.Comments);
+                
             })
             .catch(error => console.log(error));
     }

@@ -26,14 +26,14 @@ class Query extends Component {
   handleChange(event) {
     if (this._isMounted) {
       this.setState({ value: event.target.value });
-      console.log(this.state.value);
+     
     }
   }
 
 
   postQuestion(event) {
     event.preventDefault();
-    console.log(this.state.value);
+    
     var postQueryJSON = { "topicId": this.props.match.params.id, "queries": this.state.value }
 
     var myQueryJSON = JSON.stringify(postQueryJSON);
@@ -103,8 +103,6 @@ class Query extends Component {
 
     var myJSON = JSON.stringify(deleteId);
 
-
-    console.log(deleteId);
     const API = "http://localhost:8080";
     const ENDPOINT = "/deleteQuery";
 

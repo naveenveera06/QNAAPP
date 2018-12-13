@@ -37,7 +37,7 @@ public class Comment {
 	@Column(name="comments")
 	private String comment;
 	
-	@NotNull
+	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MMM dd yyyy")
 	@Column(name="row_creat_dt")
 	private LocalDate rowCreatDt;
