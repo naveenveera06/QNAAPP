@@ -43,9 +43,7 @@ public class CommentServiceImpl implements CommentService {
 	   Input: Query ID, Comment
 	 */
 	public Comment postComment(Comment comment) {
-	
-			comment.setRowCreatDt(LocalDate.now());
-			
+				
 				return commentRepo.save(comment);
 
 	}

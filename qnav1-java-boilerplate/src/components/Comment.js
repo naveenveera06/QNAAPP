@@ -29,21 +29,17 @@ class Comment extends Component {
 
         event.preventDefault();
 
-        var postCommentJSON = { "queryId": this.props.match.params.id, "comment": this.state.value }
-
-        var myCommentJSON = JSON.stringify(postCommentJSON);
-
         const API = "http://localhost:8080";
-        const ENDPOINT = "/postComment";
+        const ENDPOINT = "/postComment/";
 
-        fetch(API + ENDPOINT
+        fetch(API + ENDPOINT + this.props.match.params.id
             , {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
                 method: 'POST',
-                body: myCommentJSON
+                body: this.state.value
             })
             .then(response => {
                 if (response.status == 400) {

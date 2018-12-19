@@ -11,6 +11,6 @@ public interface CommentService {
 
 	public Integer deleteComment(Integer id);
 
-	public Comment postComment(Comment comment);
+	public Comment postComment(Comment cmt);
 
 }

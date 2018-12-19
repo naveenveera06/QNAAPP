@@ -1,7 +1,8 @@
 package com.stackroute.serviceImpl;
 
-import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.stackroute.entity.Queries;
@@ -41,9 +42,13 @@ public class QueryServiceImpl implements QueryService {
 	 * Input: Topic ID, Query
 	 */
 
-	public Queries postQuery(Queries queries) {
-		queries.setRowCreatDt(LocalDate.now());
-		
-				return queryRepo.save(queries);
+	public Queries postQuery(Queries que) {
+
+				return queryRepo.save(que);
 		}
+
+	
+	public Optional<Queries> findQueryId(String id) {
+		return queryRepo.findById(Integer.parseInt(id));
+	}
 }

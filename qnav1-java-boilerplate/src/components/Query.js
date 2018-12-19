@@ -26,33 +26,29 @@ class Query extends Component {
   handleChange(event) {
     if (this._isMounted) {
       this.setState({ value: event.target.value });
-     
+
     }
   }
 
 
   postQuestion(event) {
     event.preventDefault();
-    
-    var postQueryJSON = { "topicId": this.props.match.params.id, "queries": this.state.value }
-
-    var myQueryJSON = JSON.stringify(postQueryJSON);
 
     const API = "http://localhost:8080";
-    const ENDPOINT = "/postQuery";
+    const ENDPOINT = "/postQuery/";
 
-    fetch(API + ENDPOINT
+    fetch(API + ENDPOINT + this.props.match.params.id
       , {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
         method: 'POST',
-        body: myQueryJSON
+        body: this.state.value
       })
       .then(response => {
         if (response.status == 400) {
-          toastr.info("Enter characters  between 1 and 200");
+          toastr.info("Enter characters between 1 and 200");
         }
         else if (response.status == 417) {
           toastr.error("Error in posting query");

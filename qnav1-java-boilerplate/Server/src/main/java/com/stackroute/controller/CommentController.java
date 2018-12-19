@@ -1,7 +1,9 @@
 package com.stackroute.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.NoResultException;
 import javax.validation.Valid;
@@ -17,13 +19,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.stackroute.entity.Comment;
+import com.stackroute.entity.Queries;
+import com.stackroute.entity.Topic;
 import com.stackroute.service.CommentService;
+import com.stackroute.service.QueryService;
 
 @RestController
 public class CommentController {
 	@Autowired
 	CommentService commentService;
 
+	@Autowired
+	QueryService queryService;
+	
 	private static final Logger logger = Logger.getLogger(CommentController.class);
 
 	/*
@@ -82,12 +90,23 @@ public class CommentController {
 	 */
 
 	@CrossOrigin("*")
-	@RequestMapping(value = "/postComment", method = RequestMethod.POST)
-	public @ResponseBody Comment postNewComment(@Valid @RequestBody Comment comment) {
+	@RequestMapping(value = "/postComment/{id}", method = RequestMethod.POST)
+	public @ResponseBody Comment postNewComment(@PathVariable("id") String id, @RequestBody String comment) {
 
-		Comment cmt = null;
+		Comment cmt = new Comment();
 		try {
-			cmt = commentService.postComment(comment);
+			Optional<Queries> queryIdCheck = queryService.findQueryId(id);
+			if (queryIdCheck.isPresent()) {
+				cmt.setComment(comment);
+				cmt.setQueryId(queryIdCheck.get());
+				cmt.setRowCreatDt(LocalDate.now());
+				
+			cmt = commentService.postComment(cmt);
+			}
+			else{
+				logger.debug("Invalid query ID");
+				throw new NoResultException();
+			}
 		} catch (Exception e) {
 
 			logger.error("Error in posting comment " + e);

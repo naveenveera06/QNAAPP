@@ -25,13 +25,12 @@ public class CommentControllerTest {
 	@Autowired
 	MockMvc mvc;
 	
-	String CommentId="43";
+	String CommentId="3";
 	
 	@Test
 	public void getCommentTest() throws Exception {
 		
-		MvcResult result = mvc.perform(post("/commentList").contentType(MediaType.APPLICATION_JSON).content("queryId").accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk()).andReturn();
+		MvcResult result = mvc.perform(get("/commentList/1")).andExpect(status().isOk()).andReturn();
 			       
 			       	       
 		String commentList = result.getResponse().getContentAsString();
@@ -54,10 +53,8 @@ public class CommentControllerTest {
 	@Test
 	public void postCommentTest() throws Exception {
 		
-		MvcResult result = mvc.perform(post("/postComment").
-				contentType(MediaType.APPLICATION_JSON).
-				content("{\"queryId\": \"52\", \"comment\": \"Its Eon Sportz\"}")
-				.accept(MediaType.APPLICATION_JSON))
+		MvcResult result = mvc.perform(post("/postComment/3")
+				.content("It will be announced in 2019 start"))
 				.andExpect(status().isOk()).andReturn();
 			       
 			       	       

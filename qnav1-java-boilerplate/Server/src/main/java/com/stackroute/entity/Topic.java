@@ -3,11 +3,15 @@
  */
 package com.stackroute.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -31,7 +35,10 @@ public class Topic {
 	@NotNull
 	@Column(name="description")
 	private String description;
-
+	
+	/*@OneToMany(mappedBy="topicId")
+	private Set<Queries> topicReference;
+*/
 	public int getTopicId() {
 		return topicId;
 	}
@@ -55,6 +62,14 @@ public class Topic {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	/*public Set<Queries> getTopicReference() {
+		return topicReference;
+	}
+
+	public void setTopicReference(Set<Queries> topicReference) {
+		this.topicReference = topicReference;
+	}*/
 
 	@Override
 	public String toString() {

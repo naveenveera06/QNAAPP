@@ -19,8 +19,8 @@ import com.stackroute.entity.Comment;
  *
  */
 @Repository("commentRepo")
-public interface CommentRepo extends JpaRepository<Comment, Long> {
-	@Query("from Comment where queryId=:id")
+public interface CommentRepo extends JpaRepository<Comment, Integer> {
+	@Query("from Comment c where c.queryId.queryId=:id")
     public List<Comment> fetchById(@Param(value = "id") Integer id);
 
 	@Transactional

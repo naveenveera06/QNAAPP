@@ -26,14 +26,12 @@ public class QueryControllerTest {
 	@Autowired
 	MockMvc mvc;
 	
-	String topicId="5";
-	String queryId="11";
+	String queryId="2";
 	
 	@Test
 	public void getQueriesTest() throws Exception {
 		
-		MvcResult result = mvc.perform(post("/queryList").contentType(MediaType.APPLICATION_JSON).content(topicId).accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk())
+		MvcResult result = mvc.perform(get("/queryList/1")).andExpect(status().isOk())
 		.andReturn();
 		String queryList = result.getResponse().getContentAsString();
 		logger.debug( "List of queries under topics: " +queryList);
@@ -55,11 +53,8 @@ public class QueryControllerTest {
 	@Test
 	public void postQueryTest() throws Exception {
 		
-		MvcResult result = mvc.perform(put("/postQuery").
-				contentType(MediaType.APPLICATION_JSON).
-				content("{\"topicId\": \"0\", \"queries\": \"hi\"}")
-				//content("{\"topicId\": \"1\", \"queries\": \"\"}")
-				.accept(MediaType.APPLICATION_JSON))
+		MvcResult result = mvc.perform(post("/postQuery/2")
+			    .content("what is the upcoming car types"))
 				.andExpect(status().isOk()).andReturn();
 			       
 			       	       

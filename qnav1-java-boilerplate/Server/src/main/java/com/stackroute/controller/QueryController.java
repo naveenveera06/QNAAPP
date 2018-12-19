@@ -1,6 +1,8 @@
 package com.stackroute.controller;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.NoResultException;
 import javax.validation.Valid;
@@ -15,12 +17,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.stackroute.entity.Queries;
+import com.stackroute.entity.Topic;
 import com.stackroute.service.QueryService;
+import com.stackroute.service.TopicService;
 
 @RestController
 public class QueryController {
 	@Autowired
 	QueryService queryService;
+	
+	@Autowired
+	TopicService topicService;
 
 	private static final Logger logger = Logger.getLogger(QueryController.class);
 
@@ -78,12 +85,24 @@ public class QueryController {
 	 * Input: Topic ID, Query
 	 */
 	@CrossOrigin("*")
-	@RequestMapping(value = "/postQuery", method = RequestMethod.POST)
-	public @ResponseBody Queries postNewQuery(@Valid @RequestBody Queries queries) {
-		Queries que = null;
+	@RequestMapping(value = "/postQuery/{id}", method = RequestMethod.POST)
+	public @ResponseBody Queries postNewQuery( @PathVariable("id") String id, @RequestBody String query) {
+		Queries que = new Queries();
+		
 		try {
+			Optional<Topic> topicIdCheck = topicService.findTopicId(id);
+			if (topicIdCheck.isPresent()) {
+				que.setQueries(query);
+				que.setTopicId(topicIdCheck.get());
+				que.setRowCreatDt(LocalDate.now());
+				
+			que = queryService.postQuery(que);
+			}
+			else{
+				logger.debug("Invalid topic ID");
+				throw new NoResultException();
+			}
 			
-			que = queryService.postQuery(queries);
 		} catch (Exception e) {
 
 			logger.error("Error in posting query " + e);

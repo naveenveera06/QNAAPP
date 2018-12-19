@@ -13,6 +13,6 @@ import com.stackroute.entity.Topic;
  *
  */
 @Repository("topicRepo")
-public interface TopicRepo extends JpaRepository<Topic, Long> {
+public interface TopicRepo extends JpaRepository<Topic, Integer> {
 
 }

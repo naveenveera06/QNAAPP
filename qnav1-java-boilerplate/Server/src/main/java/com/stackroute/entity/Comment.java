@@ -9,9 +9,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 
@@ -28,9 +34,12 @@ public class Comment {
 	@Column(name="comment_id", nullable=false,updatable=false)
 	private int commentId;
 	
+	
+	@ManyToOne
+	@OnDelete(action=OnDeleteAction.CASCADE)
 	@NotNull
-	@Column(name="query_id")
-	private int queryId;
+	@JoinColumn(name="query_id")
+	private Queries queryId;
 	
 	@Size(min = 1, max = 200)
 	@NotNull
@@ -50,11 +59,11 @@ public class Comment {
 		this.commentId = commentId;
 	}
 
-	public int getQueryId() {
+	public Queries getQueryId() {
 		return queryId;
 	}
 
-	public void setQueryId(int queryId) {
+	public void setQueryId(Queries queryId) {
 		this.queryId = queryId;
 	}
 

@@ -4,14 +4,21 @@
 package com.stackroute.entity;
 
 import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 
@@ -28,9 +35,11 @@ public class Queries {
 	@Column(name = "query_id", nullable=false,updatable=false)
 	private int queryId;
 
+	@ManyToOne
+	@OnDelete(action=OnDeleteAction.CASCADE)
 	@NotNull
-	@Column(name = "topic_id")
-	private int topicId;
+	@JoinColumn(name="topic_id")
+	private Topic topicId;
 
 	@Size(min = 1, max = 200)
 	@NotNull
@@ -49,11 +58,11 @@ public class Queries {
 		this.queryId = queryId;
 	}
 
-	public int getTopicId() {
+	public Topic getTopicId() {
 		return topicId;
 	}
 
-	public void setTopicId(int topicId) {
+	public void setTopicId(Topic topicId) {
 		this.topicId = topicId;
 	}
 

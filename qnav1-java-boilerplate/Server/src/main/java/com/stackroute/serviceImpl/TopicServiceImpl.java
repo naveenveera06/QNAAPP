@@ -1,6 +1,7 @@
 package com.stackroute.serviceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 
@@ -21,8 +22,12 @@ public class TopicServiceImpl implements TopicService {
 		return topicRepo.findAll();
 	} 
 	
+	public Optional<Topic> findTopicId(String id){
+		
+	return topicRepo.findById(Integer.parseInt(id));
+	}
 	
-	@PostConstruct
+	
 	@Override
 	public void topicInitialize() {
 		// TODO Auto-generated method stub
