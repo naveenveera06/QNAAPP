@@ -18,10 +18,9 @@ class Comment extends Component {
 
 
     handleChange(event) {
-      
+
         if (this._isMounted) {
             this.setState({ value: event.target.value });
-            console.log(this.state.value);
         }
     }
 
@@ -42,10 +41,10 @@ class Comment extends Component {
                 body: this.state.value
             })
             .then(response => {
-                if (response.status == 400) {
+                if (response.status == 417) {
                     toastr.info("Enter characters  between 1 and 200");
                 }
-                else if (response.status == 417) {
+                else if (response.status == 400) {
                     toastr.error("Error in posting comment");
                 }
                 return response.json();
@@ -110,7 +109,7 @@ class Comment extends Component {
                 this.setState({
                     Comments: result
                 });
-                
+
             })
             .catch(error => console.log(error));
     }
